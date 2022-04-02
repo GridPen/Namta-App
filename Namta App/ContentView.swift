@@ -16,6 +16,8 @@ struct ContentView: View {
     @State private var tables = 2
     @State private var questionAmount = 5
     var qNumber = [5,10,20]
+    @State private var nextQuestion = 0
+    @State private var tapCount = 1
     
     
     var body: some View {
@@ -34,36 +36,30 @@ struct ContentView: View {
             Text("Wrire the correct Answer?")
                 .font(.headline)
             
-            HStack{
-                Text("Math: \(tables) X \(number1) = ")
-                TextField("write your answer here", text: $userAnswer)
+            VStack{
+                Text("Question Number \(tapCount) of \(questionAmount): \(tables) X \(number1) = ")
+                HStack{
+                    TextField("write your answer here", text: $userAnswer)
+                }
             }
             
-            HStack{
-                
-            }
-            
-            
-            Button("Check"){
+            Button("Next"){
                 showingAlert = true
+                tapCount += 1
             }
-            .alert("Important message", isPresented: $showingAlert) {
-                Button("OK", role: .cancel) { }
+            .alert("Question \(asn())", isPresented: $showingAlert) {
+                Button("OK", role: .cancel) {  }
             }
             
         }
         
+
+        
     }
-    
-    
-    func MathAnswer() -> Int {
-        return number1 * number2
-    }
-    
-    func correctAnswer() {
-        if MathAnswer() == Int(userAnswer) {
-          
-        }
+    func asn() -> Int {
+        var a = nextQuestion + questionAmount
+        var b = a - 1
+        return b
     }
 }
 
