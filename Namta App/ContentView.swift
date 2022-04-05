@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var correctAns = 0
-    @State var number1 = Int.random(in: 0...10)
+    @State var number1 = 2
     @State var number2 = Int.random(in: 0...10)
     @State private var userAnswer = ""
     @State private var showingAlert = false
@@ -38,18 +38,22 @@ struct ContentView: View {
                 
                 Text("Wrire the correct Answer?")
                     .font(.headline)
+                    .foregroundColor(.orange)
                 
                 VStack{
                     Text("Question Number \(tapCount) of \(questionAmount): \(tables) X \(number1) = ")
                     HStack{
-                        TextField("write your answer here", text: $userAnswer)
+                        TextField("write your answer here",text: $userAnswer)
                     }
                 }
                 
                 Button("Check") {
+                    let playerRandom = Int.random(in: 2...10)
+                    number1 = playerRandom
                     showingAlert = true
                     tapCount += 1
                 }
+                
                 .alert("Question \(questionHave())", isPresented: $showingAlert) {
                     Button("OK", role: .cancel) {  }
                 }
